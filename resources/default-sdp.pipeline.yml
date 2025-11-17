@@ -1,0 +1,16 @@
+resources:
+  pipelines:
+    default-sdp:
+      name: default-sdp
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      root_path: "../src/default-sdp"
+
+      libraries:
+        - glob:
+            include: ../src/default-sdp/transformations/**
+
+      environment:
+        dependencies:
+          - --editable ${workspace.file_path}

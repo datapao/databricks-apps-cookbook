@@ -1,0 +1,36 @@
+bundle:
+  name: dbx-apps-cookbook
+  uuid: 249208c9-9df0-4c53-a683-6e5424588702
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-4002612472177324.4.azuredatabricks.net
+    variables:
+      catalog: dgulacsy
+      schema: dev
+
+  prd:
+    mode: production
+    workspace:
+      host: https://adb-4002612472177324.4.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/dominik.gulacsy@datapao.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/dominik.gulacsy@datapao.com/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: dgulacsy
+      schema: prd
+    permissions:
+      - user_name: dominik.gulacsy@datapao.com
+        level: CAN_MANAGE

@@ -3,7 +3,7 @@ import streamlit as st
 from databricks import sql
 from databricks.sdk.core import Config
 from databricks.sdk import WorkspaceClient
-
+import datetime
 
 st.header(body="Tables", divider=True)
 st.subheader("Edit a Delta table")
@@ -49,18 +49,36 @@ def get_table_names(catalog_name, schema_name):
     tables = w.tables.list(catalog_name=catalog_name, schema_name=schema_name)
     return [table.name for table in tables]
 
+def sql_repr(value):
+    """A drop-in replacement for repr(), but SQL-safe."""
+    if value is None or pd.isna(value):
+        return "NULL"
+
+    if isinstance(value, datetime.date) and not isinstance(value, datetime.datetime):
+        # Date only: 'YYYY-MM-DD'
+        return repr(value.isoformat())
+
+    if isinstance(value, datetime.datetime):
+        # Datetime: 'YYYY-MM-DD HH:MM:SS'
+        return repr(value.isoformat(sep=" ", timespec="seconds"))
+
+    return repr(value)  # fallback for strings, ints, floats, bool
+
 
 def insert_overwrite_table(table_name: str, df: pd.DataFrame, conn):
     progress = st.empty()
+
     with conn.cursor() as cursor:
+        # print("DF schema:", df.dtypes)
         rows = list(df.itertuples(index=False))
-        values = ",".join([f"({','.join(map(repr, row))})" for row in rows])
+        values = ",".join([f"({','.join(map(sql_repr, row))})" for row in rows])
+
+        # print("VALUES:", values)
         with progress:
             st.info("Calling Databricks SQL...")
-        cursor.execute(f"INSERT OVERWRITE {table_name} VALUES {values}")
+        cursor.execute(f"INSERT OVERWRITE {table_name} VALUES {values};")
     progress.empty()
     st.success("Changes saved")
-
 
 tab_a, tab_b, tab_c = st.tabs(["**Try it**", "**Code snippet**", "**Requirements**"])
 
