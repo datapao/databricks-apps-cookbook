@@ -17,8 +17,11 @@ warehouses = w.warehouses.list()
 
 warehouse_paths = {wh.name: wh.odbc_params.path for wh in warehouses}
 
-catalogs = w.catalogs.list()
+def get_catalog_names():
+    catalogs = w.catalogs.list()
+    return sorted([catalog.name for catalog in catalogs])
 
+catalogs = get_catalog_names()
 
 @st.cache_resource
 def get_connection(http_path):
@@ -35,41 +38,52 @@ def read_table(table_name, conn):
         cursor.execute(query)
         return cursor.fetchall_arrow().to_pandas()
 
-
 def get_schema_names(catalog_name):
     schemas = w.schemas.list(catalog_name=catalog_name)
-    return [schema.name for schema in schemas]
-
+    return sorted([schema.name for schema in schemas])
 
 def get_table_names(catalog_name, schema_name):
     tables = w.tables.list(catalog_name=catalog_name, schema_name=schema_name)
-    return [table.name for table in tables]
+    return sorted([table.name for table in tables])
 
+for key in ["catalog_name", "schema_name", "table_name", "http_path_input", "prev_catalog", "prev_schema"]:
+    if key not in st.session_state:
+        st.session_state[key] = None
 
 tab_a, tab_b, tab_c = st.tabs(["**Try it**", "**Code snippet**", "**Requirements**"])
 
 with tab_a:
     http_path_input = st.selectbox(
-        "Select a SQL warehouse:", [""] + list(warehouse_paths.keys())
+        "Select a SQL warehouse:",
+        [""] + list(warehouse_paths.keys()),
+        key="http_path_input"
     )
 
     catalog_name = st.selectbox(
-        "Select a catalog:", [""] + [catalog.name for catalog in catalogs]
+        "Select a catalog:",
+        [""] + catalogs,
+        key="catalog_name",
     )
 
-    if catalog_name and catalog_name != "":
-        schema_names = get_schema_names(catalog_name)
-        schema_name = st.selectbox("Select a schema:", [""] + schema_names)
+    schemas = get_schema_names(catalog_name) if st.session_state.catalog_name else []
+    schema_name = st.selectbox(
+        "Select a schema:",
+        [""] + schemas,
+        key="schema_name",
+    )
 
-    if catalog_name and catalog_name != "" and schema_name and schema_name != "":
-        table_names = get_table_names(catalog_name, schema_name)
-        table_name = st.selectbox("Select a table:", [""] + table_names)
+    tables = get_table_names(catalog_name, schema_name) if st.session_state.schema_name else []
+    table_name = st.selectbox(
+        "Select a table:",
+        [""] + tables,
+        key="table_name"
+    )
 
-        if http_path_input and table_name and table_name != "":
-            http_path = warehouse_paths[http_path_input]
-            conn = get_connection(http_path)
-            df = read_table(f"{catalog_name}.{schema_name}.{table_name}", conn)
-            st.dataframe(df)
+    if http_path_input and table_name:
+        conn = get_connection(warehouse_paths[http_path_input])        
+        table_full_name = f"{catalog_name}.{schema_name}.{table_name}"
+        df = read_table(table_full_name, conn)
+        st.dataframe(df)
 
 
 with tab_b:
