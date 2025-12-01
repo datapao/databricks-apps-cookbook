@@ -19,18 +19,14 @@ targets:
     workspace:
       host: https://adb-4334681477230492.12.azuredatabricks.net/
     variables:
-      catalog: dgulacsy
-      schema: dev
+      catalog: demo_wzz_dbxapps_default
+      schema: default
 
   prd:
     mode: production
     workspace:
       host: https://adb-4334681477230492.12.azuredatabricks.net/
-      # We explicitly deploy to /Workspace/Users/dominik.gulacsy@datapao.com to make sure we only have a single copy.
       root_path: /Workspace/Users/dominik.gulacsy@datapao.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: dgulacsy
-      schema: prd
-    permissions:
-      - user_name: dominik.gulacsy@datapao.com
-        level: CAN_MANAGE
+      catalog: demo_wzz_dbxapps_default
+      schema: default
