@@ -4,22 +4,18 @@ from databricks.sdk.core import Config
 from databricks.sdk import WorkspaceClient
 from streamlit.web.server.websocket_headers import _get_websocket_headers
 
-
-
 def get_user_token():
     headers = st.context.headers
     user_token = headers["X-Forwarded-Access-Token"]
     return user_token
 
-# cfg = Config(
-# )
-
-print(get_user_token())
-w = WorkspaceClient(
+cfg = Config(
     host="https://adb-4334681477230492.12.azuredatabricks.net",
     token=get_user_token(),  # OBO token
-    auth_type="pat"
-    )
+    auth_type="pat",
+)
+
+w = WorkspaceClient(config=cfg)
 
 @st.cache_resource
 def get_connection_obo(http_path, user_token):
