@@ -9,14 +9,14 @@ def get_user_token():
     user_token = headers["X-Forwarded-Access-Token"]
     return user_token
 
-cfg = Config(
+# cfg = Config(
+# )
+
+print(get_user_token())
+w = WorkspaceClient(
     host="https://adb-4334681477230492.12.azuredatabricks.net",
     token=get_user_token(),  # OBO token
-    client_id=None,
-    client_secret=None
-)
-
-w = WorkspaceClient(config=cfg)
+    )
 
 @st.cache_resource
 def get_connection_obo(http_path, user_token):
