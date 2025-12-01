@@ -1,8 +1,29 @@
 import json
 import streamlit as st
 from databricks.sdk import WorkspaceClient
+from databricks.sdk.core import Config
 
-w = WorkspaceClient()
+auth_mode = st.radio(
+    "Authentication Mode:",
+    ["On-behalf-of-user (OBO)", "Service principal"],
+    help="OBO uses the end-user's credentials. Service Principal uses the app's identity.",
+)
+
+def get_user_token():
+    headers = st.context.headers
+    user_token = headers["X-Forwarded-Access-Token"]
+    return user_token
+
+if auth_mode == "On-behalf-of-user (OBO)":
+    cfg = Config(
+        host="https://adb-4334681477230492.12.azuredatabricks.net",
+        token=get_user_token(),  # OBO token
+        auth_type="pat",
+    )
+else: 
+    cfg = Config()
+
+w = WorkspaceClient(config=cfg)
 
 st.header(body="Workflows", divider=True)
 st.subheader("Run a job")
