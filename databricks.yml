@@ -17,7 +17,7 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://adb-4002612472177324.4.azuredatabricks.net
+      host: https://adb-4334681477230492.12.azuredatabricks.net/
     variables:
       catalog: dgulacsy
       schema: dev
@@ -25,7 +25,7 @@ targets:
   prd:
     mode: production
     workspace:
-      host: https://adb-4002612472177324.4.azuredatabricks.net
+      host: https://adb-4334681477230492.12.azuredatabricks.net/
       # We explicitly deploy to /Workspace/Users/dominik.gulacsy@datapao.com to make sure we only have a single copy.
       root_path: /Workspace/Users/dominik.gulacsy@datapao.com/.bundle/${bundle.name}/${bundle.target}
     variables:
