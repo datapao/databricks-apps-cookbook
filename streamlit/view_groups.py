@@ -49,52 +49,52 @@ groups = [
             },
         ],
     },
-    {
-        "title": "AI / ML",
-        "views": [
-            {
-                "label": "Invoke a model",
-                "help": "Invoke a model across classical ML and Large Language with UI inputs.",
-                "page": "views/ml_serving_invoke.py",
-                "icon": ":material/experiment:",
-            },
-            {
-                "label": "Invoke amulti-modal LLM",
-                "help": "Send text and images for visual-language LLM tasks.",
-                "page": "views/ml_serving_invoke_mllm.py",
-                "icon": ":material/sensors:",
-            },
-            {
-                "label": "Run vector search",
-                "help": "Use Mosaic AI to generate embeddings for textual data and perform vector search.",
-                "page": "views/ml_vector_search.py",
-                "icon": ":material/search:",
-            },
-            {
-                "label": "Connect to an MCP server",
-                "help": "Connect to an MCP server.",
-                "page": "views/mcp_connect.py",
-                "icon": ":material/modeling:",
-            },
-        ],
-    },
-    {
-        "title": "Business Intelligence",
-        "views": [
-            {
-                "label": "AI/BI Dashboard",
-                "help": "Embed an AI/BI dashboard.",
-                "page": "views/embed_dashboard.py",
-                "icon": ":material/dashboard:",
-            },
-            {
-                "label": "Genie",
-                "help": "Embed a Genie space.",
-                "page": "views/genie_api.py",
-                "icon": ":material/chat:",
-            },
-        ],
-    },
+    # {
+    #     "title": "AI / ML",
+    #     "views": [
+    #         {
+    #             "label": "Invoke a model",
+    #             "help": "Invoke a model across classical ML and Large Language with UI inputs.",
+    #             "page": "views/ml_serving_invoke.py",
+    #             "icon": ":material/experiment:",
+    #         },
+    #         {
+    #             "label": "Invoke amulti-modal LLM",
+    #             "help": "Send text and images for visual-language LLM tasks.",
+    #             "page": "views/ml_serving_invoke_mllm.py",
+    #             "icon": ":material/sensors:",
+    #         },
+    #         {
+    #             "label": "Run vector search",
+    #             "help": "Use Mosaic AI to generate embeddings for textual data and perform vector search.",
+    #             "page": "views/ml_vector_search.py",
+    #             "icon": ":material/search:",
+    #         },
+    #         {
+    #             "label": "Connect to an MCP server",
+    #             "help": "Connect to an MCP server.",
+    #             "page": "views/mcp_connect.py",
+    #             "icon": ":material/modeling:",
+    #         },
+    #     ],
+    # },
+    # {
+    #     "title": "Business Intelligence",
+    #     "views": [
+    #         {
+    #             "label": "AI/BI Dashboard",
+    #             "help": "Embed an AI/BI dashboard.",
+    #             "page": "views/embed_dashboard.py",
+    #             "icon": ":material/dashboard:",
+    #         },
+    #         {
+    #             "label": "Genie",
+    #             "help": "Embed a Genie space.",
+    #             "page": "views/genie_api.py",
+    #             "icon": ":material/chat:",
+    #         },
+    #     ],
+    # },
     {
         "title": "Workflows",
         "views": [
@@ -104,12 +104,12 @@ groups = [
                 "page": "views/workflows_run.py",
                 "icon": ":material/valve:",
             },
-            {
-                "label": "Retrieve job results",
-                "help": "Retrieve results for a Workflow Job run.",
-                "page": "views/workflows_get_results.py",
-                "icon": ":material/account_tree:",
-            },
+            # {
+            #     "label": "Retrieve job results",
+            #     "help": "Retrieve results for a Workflow Job run.",
+            #     "page": "views/workflows_get_results.py",
+            #     "icon": ":material/account_tree:",
+            # },
         ],
     },
     {
@@ -168,21 +168,21 @@ groups = [
             },
         ],
     },
-    {
-        "title": "External services",
-        "views": [
-            {
-                "label": "Use external connections",
-                "help": "Use a Unity Catalog-governed HTTP endpoint.",
-                "page": "views/external_connections.py",
-                "icon": ":material/link:",
-            },
-            {
-                "label": "Retrieve a secret",
-                "help": "Get a sensitive API key without hard-coding it.",
-                "page": "views/secrets_retrieve.py",
-                "icon": ":material/lock:",
-            },
-        ],
-    },
+    # {
+    #     "title": "External services",
+    #     "views": [
+    #         {
+    #             "label": "Use external connections",
+    #             "help": "Use a Unity Catalog-governed HTTP endpoint.",
+    #             "page": "views/external_connections.py",
+    #             "icon": ":material/link:",
+    #         },
+    #         {
+    #             "label": "Retrieve a secret",
+    #             "help": "Get a sensitive API key without hard-coding it.",
+    #             "page": "views/secrets_retrieve.py",
+    #             "icon": ":material/lock:",
+    #         },
+    #     ],
+    # },
 ]
