@@ -6,14 +6,14 @@ from streamlit.web.server.websocket_headers import _get_websocket_headers
 
 cfg = Config()
 
-w = WorkspaceClient()
-
+# 
 
 def get_user_token():
     headers = st.context.headers
     user_token = headers["X-Forwarded-Access-Token"]
     return user_token
 
+w = WorkspaceClient(token=get_user_token())
 
 @st.cache_resource
 def get_connection_obo(http_path, user_token):
