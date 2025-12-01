@@ -3,4 +3,4 @@ SELECT
     SUM(dep_delay) AS total_delay,
     EXTRACT(YEAR FROM dep_timestamp) AS year,
     EXTRACT(MONTH FROM dep_timestamp) AS month
-FROM dgulacsy.demo.flights2;
+FROM demo_wzz_dbxapps_default.default.flights_small;
