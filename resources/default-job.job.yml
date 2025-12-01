@@ -15,9 +15,16 @@ resources:
         - task_key: notebook_task
           notebook_task:
             notebook_path: ../src/sample_notebook.ipynb
+          environment_key: default
             
         - task_key: refresh_pipeline
           depends_on:
             - task_key: notebook_task
           pipeline_task:
             pipeline_id: ${resources.pipelines.default-sdp.id}
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED
