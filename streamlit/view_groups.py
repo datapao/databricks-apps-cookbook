@@ -104,6 +104,12 @@ groups = [
                 "page": "views/workflows_run.py",
                 "icon": ":material/valve:",
             },
+            {
+                "label": "Get job run history",
+                "help": "Get the run history for a Workflow Job.",
+                "page": "views/workflows_run_history.py",
+                "icon": ":material/account_tree:",
+            },
             # {
             #     "label": "Retrieve job results",
             #     "help": "Retrieve results for a Workflow Job run.",
